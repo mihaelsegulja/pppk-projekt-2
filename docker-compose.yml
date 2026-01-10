@@ -1,0 +1,77 @@
+services:
+  aves-worker:
+    build:
+      context: .
+      dockerfile: AvesPipeline.WorkerService/Dockerfile
+    container_name: aves-worker
+    depends_on:
+      - mongo
+      - kafka
+      - seaweedfs
+    environment:
+      # Mongo
+      MONGO__CONNECTIONSTRING: mongodb://mongo:27017
+      MONGO__DATABASE: aves_pipeline
+
+      # Kafka
+      KAFKA__BOOTSTRAPSERVERS: kafka:9092
+      KAFKA__TOPIC: bird_observations
+
+      # S3 (SeaweedFS)
+      S3__ENDPOINT: http://seaweedfs:8333
+      S3__ACCESSKEY: any
+      S3__SECRETKEY: any
+      S3__BUCKET: bird-audio
+      S3__FORCEPATHSTYLE: "true"
+
+      # Pipeline
+      PIPELINE__CONFIDENCETHRESHOLD: 0.7
+      PIPELINE__AUDIODIRECTORY: /data/audio
+    volumes:
+      - ./data/audio:/data/audio:ro
+      - ./data/output:/data/output
+    restart: "no"
+
+  mongo:
+    image: mongo:7
+    container_name: aves-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: aves-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: aves-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  seaweedfs:
+    image: chrislusf/seaweedfs
+    container_name: aves-seaweedfs
+    command: server -s3
+    ports:
+      - "8333:8333"
+      - "9333:9333"
+    volumes:
+      - seaweed_data:/data
+
+volumes:
+  mongo_data:
+  seaweed_data:
