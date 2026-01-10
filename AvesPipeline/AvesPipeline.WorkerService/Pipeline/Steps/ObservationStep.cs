@@ -8,7 +8,7 @@ namespace AvesPipeline.WorkerService.Pipeline.Steps
 {
     public class ObservationStep : IPipelineStep
     {
-        public string Name => "Observation Step";
+        public string Name => nameof(ObservationStep);
 
         public Task RunAsync(CancellationToken cancellationToken)
         {

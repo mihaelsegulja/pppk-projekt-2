@@ -8,7 +8,7 @@ namespace AvesPipeline.WorkerService.Pipeline.Steps
 {
     public class StatisticsStep : IPipelineStep
     {
-        public string Name => "Statistics Step";
+        public string Name => nameof(StatisticsStep);
 
         public Task RunAsync(CancellationToken cancellationToken)
         {

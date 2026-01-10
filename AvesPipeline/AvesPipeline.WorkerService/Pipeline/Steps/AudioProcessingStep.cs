@@ -8,7 +8,7 @@ namespace AvesPipeline.WorkerService.Pipeline.Steps
 {
     public class AudioProcessingStep : IPipelineStep
     {
-        public string Name => "Audio Processing Step";
+        public string Name => nameof(AudioProcessingStep);
 
         public Task RunAsync(CancellationToken cancellationToken)
         {
