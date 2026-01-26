@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AvesPipeline.WorkerService.Infrastructure.Http;
+using AvesPipeline.WorkerService.Infrastructure.Web;
 
 namespace AvesPipeline.WorkerService.Pipeline.Steps;
 
 public class TaxonomyStep : IPipelineStep
 {
-    private readonly IAvesHttpClient _avesHttp;
+    private readonly ITaxonomyScraper _scraper;
+    private readonly ILogger<TaxonomyStep> _logger;
 
-    public TaxonomyStep(IAvesHttpClient avesHttp)
+    public TaxonomyStep(
+        ITaxonomyScraper scraper,
+        ILogger<TaxonomyStep> logger)
     {
-        _avesHttp = avesHttp;
+        _scraper = scraper;
+        _logger = logger;
     }
     
     public string Name => nameof(TaxonomyStep);
 
     public async Task RunAsync(CancellationToken cancellationToken)
     {
-        var species = await _avesHttp.GetAllSpeciesAsync(cancellationToken);
-
-        Console.WriteLine($"Fetched {species.Count} species");
-            
-        // TODO:
-        // - deduplicate
-        // - map to persistence model
-        // - store in MongoDB
+        _logger.LogInformation("Starting taxonomy step");
+        var rows = await _scraper.ScrapeAsync(cancellationToken);
+        _logger.LogInformation("Found {Count} rows", rows.Count);
     }
 }

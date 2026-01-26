@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,10 @@ public sealed class PipelineRunner : IPipelineRunner
     {
         foreach (var step in _steps)
         {
+            var sw = Stopwatch.StartNew();
             _logger.LogInformation("Starting step: {Step}", step.Name);
             await step.RunAsync(cancellationToken);
-            _logger.LogInformation("Finished step: {Step}", step.Name);
+            _logger.LogInformation("Finished step: {Step} in {Elapsed}", step.Name, sw.Elapsed);
         }
     }
 }

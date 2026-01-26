@@ -1,15 +1,22 @@
 using AvesPipeline.WorkerService;
-using AvesPipeline.WorkerService.Infrastructure.Http;
+using AvesPipeline.WorkerService.Infrastructure.Web;
+using AvesPipeline.WorkerService.Options;
 using AvesPipeline.WorkerService.Pipeline;
 using AvesPipeline.WorkerService.Pipeline.Steps;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
 
-builder.Services.AddHttpClient<IAvesHttpClient, AvesHttpClient>(client =>
-{
-    client.Timeout = TimeSpan.FromSeconds(60);
-});
+builder.Services.Configure<TaxonomyScraperOptions>(
+    builder.Configuration.GetSection(TaxonomyScraperOptions.SectionName));
+
+builder.Services.Configure<MongoDbOptions>(
+    builder.Configuration.GetSection(MongoDbOptions.SectionName));
+
+builder.Services.Configure<S3Options>(
+    builder.Configuration.GetSection(S3Options.SectionName));
+
+builder.Services.AddSingleton<ITaxonomyScraper, TaxonomyScraper>();
 
 builder.Services.AddSingleton<IPipelineRunner, PipelineRunner>();
 
