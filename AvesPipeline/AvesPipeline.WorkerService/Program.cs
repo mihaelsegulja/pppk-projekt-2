@@ -1,5 +1,5 @@
 using AvesPipeline.WorkerService;
-using AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Repositories;
+using AvesPipeline.WorkerService.Infrastructure.MongoDb.Repositories;
 using AvesPipeline.WorkerService.Infrastructure.Web;
 using AvesPipeline.WorkerService.Options;
 using AvesPipeline.WorkerService.Pipeline;

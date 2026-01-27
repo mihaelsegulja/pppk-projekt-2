@@ -1,11 +1,11 @@
-using AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Documents;
-using AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Mappers;
+using AvesPipeline.WorkerService.Infrastructure.MongoDb.Documents;
+using AvesPipeline.WorkerService.Infrastructure.MongoDb.Mappers;
 using AvesPipeline.WorkerService.Infrastructure.Web.Dtos;
 using AvesPipeline.WorkerService.Options;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Repositories;
+namespace AvesPipeline.WorkerService.Infrastructure.MongoDb.Repositories;
 
 public sealed class TaxonomyRepository : ITaxonomyRepository
 {

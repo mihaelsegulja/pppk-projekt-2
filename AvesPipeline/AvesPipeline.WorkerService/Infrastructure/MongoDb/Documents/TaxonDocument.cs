@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Documents;
+namespace AvesPipeline.WorkerService.Infrastructure.MongoDb.Documents;
 
 public sealed class TaxonDocument
 {

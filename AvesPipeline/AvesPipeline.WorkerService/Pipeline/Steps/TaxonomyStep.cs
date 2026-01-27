@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Repositories;
+using AvesPipeline.WorkerService.Infrastructure.MongoDb.Repositories;
 using AvesPipeline.WorkerService.Infrastructure.Web;
 
 namespace AvesPipeline.WorkerService.Pipeline.Steps;

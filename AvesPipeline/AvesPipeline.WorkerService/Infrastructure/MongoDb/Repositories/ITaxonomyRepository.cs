@@ -1,6 +1,6 @@
 using AvesPipeline.WorkerService.Infrastructure.Web.Dtos;
 
-namespace AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Repositories;
+namespace AvesPipeline.WorkerService.Infrastructure.MongoDb.Repositories;
 
 public interface ITaxonomyRepository
 {
