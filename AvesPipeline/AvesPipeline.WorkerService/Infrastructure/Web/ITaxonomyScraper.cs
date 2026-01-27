@@ -1,4 +1,4 @@
-using AvesPipeline.WorkerService.Models;
+using AvesPipeline.WorkerService.Infrastructure.Web.Dtos;
 
 namespace AvesPipeline.WorkerService.Infrastructure.Web;
 

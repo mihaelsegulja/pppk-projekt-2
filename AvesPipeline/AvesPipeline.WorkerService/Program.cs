@@ -1,4 +1,5 @@
 using AvesPipeline.WorkerService;
+using AvesPipeline.WorkerService.Infrastructure.Persistence.MongoDb.Repositories;
 using AvesPipeline.WorkerService.Infrastructure.Web;
 using AvesPipeline.WorkerService.Options;
 using AvesPipeline.WorkerService.Pipeline;
@@ -17,6 +18,7 @@ builder.Services.Configure<S3Options>(
     builder.Configuration.GetSection(S3Options.SectionName));
 
 builder.Services.AddSingleton<ITaxonomyScraper, TaxonomyScraper>();
+builder.Services.AddSingleton<ITaxonomyRepository, TaxonomyRepository>();
 
 builder.Services.AddSingleton<IPipelineRunner, PipelineRunner>();
 

@@ -1,4 +1,4 @@
-namespace AvesPipeline.WorkerService.Models;
+namespace AvesPipeline.WorkerService.Infrastructure.Web.Dtos;
 
 public sealed class TaxonDto
 {

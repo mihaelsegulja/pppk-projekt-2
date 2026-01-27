@@ -1,8 +1,8 @@
 using AngleSharp;
 using AngleSharp.Dom;
 using Microsoft.Playwright;
-using AvesPipeline.WorkerService.Models;
 using System.Collections.Concurrent;
+using AvesPipeline.WorkerService.Infrastructure.Web.Dtos;
 using AvesPipeline.WorkerService.Options;
 using Microsoft.Extensions.Options;
 
