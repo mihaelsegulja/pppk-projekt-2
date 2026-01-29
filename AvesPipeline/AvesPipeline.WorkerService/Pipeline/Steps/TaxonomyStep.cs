@@ -34,8 +34,7 @@ public class TaxonomyStep : IPipelineStep
         var exists = await _repository.AnyAsync(cancellationToken);
         if (exists)
         {
-            _logger.LogInformation(
-                "Taxonomy data already exists, skipping scraping step");
+            _logger.LogInformation("Taxonomy data already exists, skipping scraping step");
             return;
         }
 

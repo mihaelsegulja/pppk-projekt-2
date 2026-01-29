@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvesPipeline.WorkerService.Pipeline.Steps
-{
-    public class StatisticsStep : IPipelineStep
-    {
-        public string Name => nameof(StatisticsStep);
+namespace AvesPipeline.WorkerService.Pipeline.Steps;
 
-        public Task RunAsync(CancellationToken cancellationToken)
-        {
-            // TODO: Implement statistics calculation logic
-            return Task.CompletedTask;
-        }
+public class StatisticsStep : IPipelineStep
+{
+    public string Name => nameof(StatisticsStep);
+
+    public Task RunAsync(CancellationToken cancellationToken)
+    {
+        // TODO: Implement statistics calculation logic
+        return Task.CompletedTask;
     }
 }

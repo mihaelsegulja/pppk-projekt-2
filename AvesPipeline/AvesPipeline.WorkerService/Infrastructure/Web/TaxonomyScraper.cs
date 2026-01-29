@@ -11,12 +11,12 @@ namespace AvesPipeline.WorkerService.Infrastructure.Web;
 public sealed class TaxonomyScraper : ITaxonomyScraper, IAsyncDisposable
 {
     private readonly ILogger<TaxonomyScraper> _logger;
-    private readonly TaxonomyScraperOptions _options;
+    private readonly WebOptions _options;
     private IPlaywright? _playwright;
     private IBrowser? _browser;
     private IPage? _indexPage;
 
-    public TaxonomyScraper(ILogger<TaxonomyScraper> logger, IOptions<TaxonomyScraperOptions> options)
+    public TaxonomyScraper(ILogger<TaxonomyScraper> logger, IOptions<WebOptions> options)
     {
         _logger = logger;
         _options = options.Value;
@@ -57,7 +57,7 @@ public sealed class TaxonomyScraper : ITaxonomyScraper, IAsyncDisposable
             var rows = await _indexPage.QuerySelectorAllAsync("#speciesTable tbody tr");
             var resultsBag = new ConcurrentBag<TaxonDto>();
 
-            var semaphore = new SemaphoreSlim(_options.MaxParallelDetails);
+            var semaphore = new SemaphoreSlim(_options.MaxParallelDetailsProcessing);
             var tasks = rows.Select((row, i) => Task.Run(async () =>
             {
                 await semaphore.WaitAsync(ct);

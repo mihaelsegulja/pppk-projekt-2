@@ -10,10 +10,36 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.4.0" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.18" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
     <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageReference Include="MongoDB.Driver" Version="3.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Audio\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Audio\XC202358 - Handsome Fruiteater - Pipreola formosa pariae.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\XC678039 - Black-and-gold Cotinga - Lipaugus ater.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\XC843263 - Cinnamon-vented Piha - Lipaugus lanioides.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\XC1000139 - Wood Warbler - Phylloscopus sibilatrix.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\XC1071008 - Common Chiffchaff - Phylloscopus collybita.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\XC1075026 - Eurasian Blackcap - Sylvia atricapilla.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
