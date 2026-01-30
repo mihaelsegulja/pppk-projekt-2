@@ -59,4 +59,9 @@ public sealed class TaxonomyRepository : ITaxonomyRepository
             new InsertManyOptions { IsOrdered = false },
             ct);
     }
+    
+    public async Task<List<TaxonDocument>> GetAllAsync(CancellationToken ct)
+    {
+        return await _collection.Find(_ => true).ToListAsync(ct);
+    }
 }

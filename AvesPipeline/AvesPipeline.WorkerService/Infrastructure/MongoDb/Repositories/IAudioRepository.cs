@@ -6,4 +6,5 @@ public interface IAudioRepository
 {
     Task<bool> ExistsAsync(string audioObjectKey, CancellationToken ct);
     Task InsertAsync(AudioDocument document, CancellationToken ct);
+    Task<List<AudioDocument>> GetAllAsync(CancellationToken ct);
 }

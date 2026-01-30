@@ -28,4 +28,9 @@ public sealed class AudioRepository : IAudioRepository
     {
         await _collection.InsertOneAsync(document, cancellationToken: ct);
     }
+
+    public async Task<List<AudioDocument>> GetAllAsync(CancellationToken ct)
+    {
+        return await _collection.Find(_ => true).ToListAsync(ct);
+    }
 }

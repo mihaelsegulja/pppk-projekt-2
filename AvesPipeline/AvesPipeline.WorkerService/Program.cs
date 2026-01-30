@@ -1,4 +1,5 @@
 using AvesPipeline.WorkerService;
+using AvesPipeline.WorkerService.Infrastructure.Csv;
 using AvesPipeline.WorkerService.Infrastructure.MongoDb.Repositories;
 using AvesPipeline.WorkerService.Infrastructure.S3;
 using AvesPipeline.WorkerService.Infrastructure.Web;
@@ -13,9 +14,11 @@ builder.Services.Configure<WebOptions>(builder.Configuration.GetSection(WebOptio
 builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection(MongoDbOptions.SectionName));
 builder.Services.Configure<S3Options>(builder.Configuration.GetSection(S3Options.SectionName));
 builder.Services.Configure<AudioProcessingStepOptions>(builder.Configuration.GetSection(AudioProcessingStepOptions.SectionName));
+builder.Services.Configure<StatisticsStepOptions>(builder.Configuration.GetSection(StatisticsStepOptions.SectionName));
 
 builder.Services.AddSingleton<ITaxonomyScraper, TaxonomyScraper>();
 builder.Services.AddHttpClient<IBirdClassifier, BirdClassifier>();
+builder.Services.AddSingleton<ICsvWriter<BirdStatisticsRow>, BirdStatisticsCsvWriter>();
 
 builder.Services.AddSingleton<ITaxonomyRepository, TaxonomyRepository>();
 builder.Services.AddSingleton<IAudioRepository, AudioRepository>();
