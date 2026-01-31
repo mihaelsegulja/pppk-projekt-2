@@ -14,7 +14,7 @@ services:
       Infrastructure__S3__Bucket: aves
       Infrastructure__S3__ForcePathStyle: "true"
     volumes:
-      - stats_output:/app/Data/Stats
+      - ./AvesPipeline/AvesPipeline.WorkerService/Data/Stats:/app/Data/Stats
     restart: "no"
 
   mongo:
@@ -42,4 +42,3 @@ services:
 volumes:
   mongo_data:
   seaweed_data:
-  stats_output:
