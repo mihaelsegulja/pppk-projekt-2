@@ -26,6 +26,7 @@ jobs:
           echo "Steps__StatisticsStep__SpeciesFilter=${{ inputs.speciesFilter }}" >> $GITHUB_ENV
 
       - name: Build and run full pipeline
+        working-directory: ${{ github.workspace }}
         run: docker compose up --build --abort-on-container-exit
 
       - name: Upload statistics
