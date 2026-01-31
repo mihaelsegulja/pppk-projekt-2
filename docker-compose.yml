@@ -6,8 +6,7 @@ services:
     container_name: aves-worker
     depends_on:
       - mongo
-      seaweedfs:
-        condition: service_healthy
+      - seaweedfs
     environment:
       Infrastructure__MongoDb__ConnectionString: mongodb://mongo:27017
       Infrastructure__MongoDb__Database: aves
@@ -37,10 +36,6 @@ services:
     image: chrislusf/seaweedfs
     container_name: aves-seaweedfs
     command: server -dir=/data -s3 -filer
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:8333/buckets?limit=1"]
-      interval: 5s
-      retries: 12
     ports:
       - "8333:8333"
       - "9333:9333"
