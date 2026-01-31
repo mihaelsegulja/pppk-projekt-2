@@ -1,0 +1,6 @@
+ScientificName,CommonName,ObservationCount,AvgConfidence,MinConfidence,MaxConfidence,Family,Order,Genus
+Phylloscopus sibilatrix,Wood Warbler,6,0.9980,0.9951,0.9999,,,
+Lipaugus lanioides,Cinnamon-vented Piha,5,0.9776,0.9227,0.9989,,,
+Phylloscopus collybita,Common Chiffchaff,5,0.9795,0.9266,0.9971,,,
+Pipreola formosa,Handsome Fruiteater,1,0.9987,0.9987,0.9987,,,
+Lipaugus ater,Black-and-gold Cotinga,1,0.9683,0.9683,0.9683,,,

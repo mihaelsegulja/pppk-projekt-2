@@ -8,14 +8,13 @@ services:
       - mongo
       - seaweedfs
     environment:
-      # Mongo
       Infrastructure__MongoDb__ConnectionString: mongodb://mongo:27017
       Infrastructure__MongoDb__Database: aves
-
-      # S3 (SeaweedFS)
       Infrastructure__S3__BaseUrl: http://seaweedfs:8333
       Infrastructure__S3__Bucket: aves
       Infrastructure__S3__ForcePathStyle: "true"
+    volumes:
+      - stats_output:/app/Data/Stats
     restart: "no"
 
   mongo:
@@ -43,3 +42,4 @@ services:
 volumes:
   mongo_data:
   seaweed_data:
+  stats_output:
