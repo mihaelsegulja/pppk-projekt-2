@@ -5,8 +5,7 @@ services:
       dockerfile: AvesPipeline.WorkerService/Dockerfile
     container_name: aves-worker
     depends_on:
-      mongo:
-        condition: service_healthy
+      - mongo
       seaweedfs:
         condition: service_healthy
     environment:
