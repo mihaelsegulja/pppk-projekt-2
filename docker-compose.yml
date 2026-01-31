@@ -1,7 +1,7 @@
 services:
   aves-worker:
     build:
-      context: .
+      context: ./AvesPipeline
       dockerfile: AvesPipeline.WorkerService/Dockerfile
     container_name: aves-worker
     depends_on:
