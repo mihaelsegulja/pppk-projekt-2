@@ -19,8 +19,8 @@ services:
       - ./AvesPipeline/AvesPipeline.WorkerService/Data/Stats:/app/Data/Stats
     working_dir: /src/AvesPipeline.WorkerService
     command: >
-      ./wait-for-it.sh mongo:27017 --timeout=60 --strict --
-      ./wait-for-it.sh seaweedfs:8333 --timeout=60 --strict --
+      ./wait-for-it.sh mongo:27017 --timeout=90 --strict --
+      ./wait-for-it.sh seaweedfs:8333 --timeout=90 --strict --
       dotnet AvesPipeline.WorkerService.dll
     restart: "no"
 
