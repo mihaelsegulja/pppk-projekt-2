@@ -13,6 +13,8 @@ services:
       Infrastructure__S3__BaseUrl: http://seaweedfs:8333
       Infrastructure__S3__Bucket: aves
       Infrastructure__S3__ForcePathStyle: "true"
+      Steps__StatisticsStep__MinConfidence: ${Steps__StatisticsStep__MinConfidence}
+      Steps__StatisticsStep__SpeciesFilter: ${Steps__StatisticsStep__SpeciesFilter}
     volumes:
       - ./AvesPipeline/AvesPipeline.WorkerService/Data/Stats:/app/Data/Stats
     restart: "no"
