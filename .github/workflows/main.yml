@@ -26,24 +26,13 @@ jobs:
           echo "Steps__StatisticsStep__SpeciesFilter=${{ inputs.speciesFilter }}" >> $GITHUB_ENV
 
       - name: Build and run full pipeline
-        run: |
-          docker compose up --build --abort-on-container-exit
-
-      - name: Copy statistics CSV
-        run: |
-          mkdir -p stats
-          docker volume inspect aves_stats_output >/dev/null 2>&1 || true
-          docker run --rm \
-            -v aves_stats_output:/data \
-            -v $PWD/stats:/out \
-            alpine \
-            cp -r /data/. /out/
+        run: docker compose up --build --abort-on-container-exit
 
       - name: Upload statistics
         uses: actions/upload-artifact@v4
         with:
           name: bird-statistics
-          path: stats/*.csv
+          path: AvesPipeline/AvesPipeline.WorkerService/Data/Stats/*.csv
 
       - name: Cleanup
         if: always()
