@@ -1,0 +1,47 @@
+name: Run Aves Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      minConfidence:
+        description: "Minimum confidence threshold"
+        required: false
+        default: "0.8"
+      speciesFilter:
+        description: "Optional regex filter for species scientific name"
+        required: false
+        default: ""
+
+jobs:
+  run-statistics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run pipeline
+        env:
+          Steps__StatisticsStep__MinConfidence: ${{ inputs.minConfidence }}
+          Steps__StatisticsStep__SpeciesFilter: ${{ inputs.speciesFilter }}
+        run: |
+          dotnet run \
+            --project AvesPipeline.WorkerService \
+            --configuration Release
+
+      - name: Upload statistics CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: bird-statistics
+          path: Data/Stats/*.csv
