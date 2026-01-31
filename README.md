@@ -63,7 +63,7 @@ Purpose:
 - Cleans and flattens classification results
 - Applies:
   - minimum confidence threshold
-  - optional fuzzy species name filter (regex)
+  - optional fuzzy species name filter
 - Aggregates statistics per species
 - Exports results as a CSV file
 - Generated statistics include:
