@@ -32,8 +32,9 @@ services:
     ports:
       - "27017:27017"
     healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 5s
+      test: ["CMD-SHELL", "mongo --eval 'db.runCommand({ ping: 1 })' || exit 1"]
+      interval: 10s
+      timeout: 5s
       retries: 12
     volumes:
       - mongo_data:/data/db
