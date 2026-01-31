@@ -5,8 +5,10 @@ services:
       dockerfile: AvesPipeline.WorkerService/Dockerfile
     container_name: aves-worker
     depends_on:
-      - mongo
-      - seaweedfs
+      mongo:
+        condition: service_healthy
+      seaweedfs:
+        condition: service_healthy
     environment:
       Infrastructure__MongoDb__ConnectionString: mongodb://mongo:27017
       Infrastructure__MongoDb__Database: aves
@@ -17,6 +19,7 @@ services:
       Steps__StatisticsStep__SpeciesFilter: ${Steps__StatisticsStep__SpeciesFilter}
     volumes:
       - ./AvesPipeline/AvesPipeline.WorkerService/Data/Stats:/app/Data/Stats
+    working_dir: /src/AvesPipeline.WorkerService
     command: >
       ./wait-for-it.sh mongo:27017 --timeout=60 --strict --
       ./wait-for-it.sh seaweedfs:8333 --timeout=60 --strict --
@@ -28,9 +31,10 @@ services:
     container_name: aves-mongo
     ports:
       - "27017:27017"
-    # environment:
-    #   MONGO_INITDB_ROOT_USERNAME: admin
-    #   MONGO_INITDB_ROOT_PASSWORD: admin
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      retries: 12
     volumes:
       - mongo_data:/data/db
 
@@ -38,6 +42,10 @@ services:
     image: chrislusf/seaweedfs
     container_name: aves-seaweedfs
     command: server -dir=/data -s3 -filer
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8333/buckets?limit=1"]
+      interval: 5s
+      retries: 12
     ports:
       - "8333:8333"
       - "9333:9333"
