@@ -1,4 +1,4 @@
-name: Run Aves Pipeline
+name: Run Aves Pipeline (Full Stack)
 
 on:
   workflow_dispatch:
@@ -8,40 +8,43 @@ on:
         required: false
         default: "0.8"
       speciesFilter:
-        description: "Optional regex filter for species scientific name"
+        description: "Optional regex filter"
         required: false
         default: ""
 
 jobs:
-  run-statistics:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "8.0.x"
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Run pipeline
-        env:
-          Steps__StatisticsStep__MinConfidence: ${{ inputs.minConfidence }}
-          Steps__StatisticsStep__SpeciesFilter: ${{ inputs.speciesFilter }}
+      - name: Set pipeline parameters
         run: |
-          dotnet run \
-            --project AvesPipeline.WorkerService \
-            --configuration Release
+          echo "Steps__StatisticsStep__MinConfidence=${{ inputs.minConfidence }}" >> $GITHUB_ENV
+          echo "Steps__StatisticsStep__SpeciesFilter=${{ inputs.speciesFilter }}" >> $GITHUB_ENV
 
-      - name: Upload statistics CSV
+      - name: Build and run full pipeline
+        run: |
+          docker compose up --build --abort-on-container-exit
+
+      - name: Copy statistics CSV
+        run: |
+          mkdir -p stats
+          docker volume inspect aves_stats_output >/dev/null 2>&1 || true
+          docker run --rm \
+            -v aves_stats_output:/data \
+            -v $PWD/stats:/out \
+            alpine \
+            cp -r /data/. /out/
+
+      - name: Upload statistics
         uses: actions/upload-artifact@v4
         with:
           name: bird-statistics
-          path: Data/Stats/*.csv
+          path: stats/*.csv
+
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v
