@@ -17,6 +17,10 @@ services:
       Steps__StatisticsStep__SpeciesFilter: ${Steps__StatisticsStep__SpeciesFilter}
     volumes:
       - ./AvesPipeline/AvesPipeline.WorkerService/Data/Stats:/app/Data/Stats
+    command: >
+      ./wait-for-it.sh mongo:27017 --timeout=60 --strict --
+      ./wait-for-it.sh seaweedfs:8333 --timeout=60 --strict --
+      dotnet AvesPipeline.WorkerService.dll
     restart: "no"
 
   mongo:
