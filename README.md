@@ -4,7 +4,7 @@ Bird taxonomy and audio data processing pipeline
 
 ## Disclaimer
 
-This project is an **educational data processing pipeline** created as part of a university course.
+This project is an **educational data processing pipeline** created as part of an university course.
 It is not intended for production use.
 
 The focus of this project was to design and implement a multi-step pipeline that:
